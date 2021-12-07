@@ -1,6 +1,16 @@
 class Solution {
     public boolean searchMatrix(int[][] matrix, int target) {
-        return quarterSearch(matrix, target, 0, 0, matrix.length - 1, matrix[0].length - 1);
+        int x = 0, y = matrix[0].length - 1;
+        while (x < matrix.length && y >= 0) {
+            if (matrix[x][y] == target) {
+                return true;
+            } else if (matrix[x][y] < target) {
+                x += 1;
+            } else {
+                y -= 1;
+            }
+        }
+        return false;
     }
 
     private boolean quarterSearch(int[][] matrix, int target, int startX, int startY, int endX, int endY) {
@@ -37,6 +47,6 @@ class Solution {
                         {10, 13, 14, 17, 24},
                         {18, 21, 23, 26, 30}};
         Solution s = new Solution();
-        System.out.println(s.searchMatrix(nums, 20));
+        System.out.println(s.searchMatrix(nums, 5));
     }
 }
