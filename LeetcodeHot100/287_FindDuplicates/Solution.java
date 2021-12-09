@@ -1,26 +1,16 @@
 class Solution {
     public int findDuplicate(int[] nums) {
-        int bitNumber = 31;
-        int n = nums.length - 1;
-        int result = 0;
-        while (n >> bitNumber == 0) {
-            bitNumber -= 1;
+        int fast = 0, slow = 0;
+        do {
+            slow = nums[slow];
+            fast = nums[nums[fast]];
+        } while (fast != slow);
+        int ptr = 0;
+        while (ptr != slow) {
+            ptr = nums[ptr];
+            slow = nums[slow];
         }
-        for (int i = bitNumber; i >= 0; i--) {
-            int countNumsBit = 0, countNaturalBit = 0;
-            for (int j = 0; j <= n; j++) {
-                if ((nums[j] & (1 << i)) != 0) {
-                    countNumsBit += 1;
-                }
-                if (j != 0 && (j & (1 << i)) != 0) {
-                    countNaturalBit += 1;
-                }
-            }
-            if (countNumsBit > countNaturalBit) {
-                result |= 1 << i;
-            }
-        }
-        return result;
+        return slow;
     }
 
     public static void main(String[] args) {
