@@ -1,19 +1,21 @@
 class Solution {
     public int maxProfit(int[] prices) {
-        int[][] dp = new int[prices.length][3];
-        dp[0][0] = -1 * prices[0];
-        dp[0][1] = 0;
-        dp[0][2] = 0;
+        int holdStock = -1 * prices[0];
+        int holdNothingInFreeze = 0;
+        int holdNothing = 0;
         for (int i = 1; i < prices.length; i++) {
-            dp[i][0] = Math.max(dp[i-1][0], dp[i-1][2] - prices[i]);
-            dp[i][1] = dp[i-1][0] + prices[i];
-            dp[i][2] = Math.max(dp[i-1][1], dp[i-1][2]);
+            int tempHoldStock = Math.max(holdStock, holdNothing - prices[i]);
+            int tempToldNothingInFreeze = holdStock + prices[i];
+            int tempHoldNothing = Math.max(holdNothingInFreeze, holdNothing);
+            holdStock = tempHoldStock;
+            holdNothingInFreeze = tempToldNothingInFreeze;
+            holdNothing = tempHoldNothing;
         }
-        return Math.max(dp[prices.length - 1][1], dp[prices.length - 1][2]);
+        return Math.max(holdNothingInFreeze, holdNothing);
     }
 
     public static void main(String[] args) {
-        int[] prices = {1, 7, 2, 4};
+        int[] prices = {1, 2, 3, 0, 2};
         Solution s = new Solution();
         System.out.println(s.maxProfit(prices));
     }
