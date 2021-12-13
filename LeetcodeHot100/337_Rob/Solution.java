@@ -31,35 +31,22 @@ class Solution {
     }
 
     public int rob(TreeNode root) {
-        return rob(root, new HashMap<>());
+        Map<TreeNode, Integer> robRootCache = new HashMap<>();
+        Map<TreeNode, Integer> notRobRootCache = new HashMap<>();
+        robRootCache.put(null, 0);
+        notRobRootCache.put(null, 0);
+        rob(root, robRootCache, notRobRootCache);
+        return Math.max(robRootCache.get(root), notRobRootCache.get(root));
     }
 
-    private int rob(TreeNode root, Map<TreeNode, Integer> cache) {
+    private void rob(TreeNode root, Map<TreeNode, Integer> robRootCache, Map<TreeNode, Integer> notRobRootCache) {
         if (root == null) {
-            return 0;
+            return;
         }
-        if (cache.containsKey(root)) {
-            return cache.get(root);
-        }
-        int result = 0;
-        if (root.left != null && root.right != null) {
-            result = Math.max(rob(root.left, cache) + rob(root.right, cache),
-                              root.val + rob(root.left.left, cache) + rob(root.left.right, cache)
-                                       + rob(root.right.left, cache) + rob(root.right.right, cache));
-        } else if (root.left != null) {
-            result = Math.max(rob(root.left, cache), root.val + rob(root.left.left, cache) + rob(root.left.right, cache));
-        } else if (root.right != null) {
-            result = Math.max(rob(root.right, cache), root.val + rob(root.right.left, cache) + rob(root.right.right, cache));
-        } else {
-            return root.val;
-        }
-        cache.put(root, result);
-        return result;
-//        if (canRobRoot) {
-//            return Math.max(root.val + rob(root.left, false) + rob(root.right, false),
-//                            rob(root.left, true) + rob(root.right, true));
-//        } else {
-//            return rob(root.left, true) + rob(root.right, true);
-//        }
+        rob(root.left, robRootCache, notRobRootCache);
+        rob(root.right, robRootCache, notRobRootCache);
+        robRootCache.put(root, root.val + notRobRootCache.get(root.left) + notRobRootCache.get(root.right));
+        notRobRootCache.put(root, Math.max(robRootCache.get(root.left), notRobRootCache.get(root.left))
+                                + Math.max(robRootCache.get(root.right), notRobRootCache.get(root.right)));
     }
 }
