@@ -7,12 +7,21 @@ class Solution {
     public int[] topKFrequent(int[] nums, int k) {
         Map<Integer, Integer> frequency = new HashMap<>();
         PriorityQueue<Integer> heap = new PriorityQueue<>((Object o1, Object o2) -> {
-            return frequency.get(o2) - frequency.get(o1);
+            return frequency.get(o1) - frequency.get(o2);
         });
         for (int num : nums) {
             frequency.put(num, frequency.getOrDefault(num, 0) + 1);
         }
-        heap.addAll(frequency.keySet());
+        for (int key : frequency.keySet()) {
+            if (heap.size() < k) {
+                heap.add(key);
+            } else {
+                if (frequency.get(key) > frequency.get(heap.peek())) {
+                    heap.poll();
+                    heap.add(key);
+                }
+            }
+        }
         int[] result = new int[k];
         for (int i = 0; i < k; i++) {
             result[i] = heap.poll();
