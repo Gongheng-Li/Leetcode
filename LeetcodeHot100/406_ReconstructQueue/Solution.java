@@ -1,30 +1,22 @@
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.List;
 
 class Solution {
     public int[][] reconstructQueue(int[][] people) {
         Arrays.sort(people, (int[] o1, int[] o2) -> {
             if (o1[0] != o2[0]) {
-                return o1[0] - o2[0];
+                return o2[0] - o1[0];
             } else {
-                return o2[1] - o1[1];
+                return o1[1] - o2[1];
             }
         });
-        int[][] result = new int[people.length][];
+        List<int[]> result = new ArrayList<>();
         for (int[] person : people) {
-            int count = 0;
-            for (int i = 0; i < people.length; i++) {
-                if (result[i] == null) {
-                    if (person[1] == count) {
-                        result[i] = person;
-                        break;
-                    } else {
-                        count += 1;
-                    }
-                }
-            }
+            result.add(person[1], person);
         }
-        return result;
+        return result.toArray(new int[people.length][]);
     }
 
     public static void main(String[] args) {
