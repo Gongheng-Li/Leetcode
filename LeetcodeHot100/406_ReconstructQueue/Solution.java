@@ -15,6 +15,8 @@ class Solution {
                     } else {
                         count += 1;
                     }
+                } else if (result[i][0] == person[0]) {
+                    count += 1;
                 }
             }
         }
