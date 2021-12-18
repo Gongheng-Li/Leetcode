@@ -3,7 +3,13 @@ import java.util.Comparator;
 
 class Solution {
     public int[][] reconstructQueue(int[][] people) {
-        Arrays.sort(people, Comparator.comparingInt((int[] o) -> o[0]));
+        Arrays.sort(people, (int[] o1, int[] o2) -> {
+            if (o1[0] != o2[0]) {
+                return o1[0] - o2[0];
+            } else {
+                return o2[1] - o1[1];
+            }
+        });
         int[][] result = new int[people.length][];
         for (int[] person : people) {
             int count = 0;
@@ -15,8 +21,6 @@ class Solution {
                     } else {
                         count += 1;
                     }
-                } else if (result[i][0] == person[0]) {
-                    count += 1;
                 }
             }
         }
