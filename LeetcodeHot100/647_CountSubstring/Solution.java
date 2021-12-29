@@ -1,17 +1,17 @@
 class Solution {
     public int countSubstrings(String s) {
-        boolean[] dp = new boolean[s.length() + 1];
-        dp[0] = true;
-        dp[1] = true;
         int sum = 0;
-        for (int i = 0; i < s.length(); i++) {
-            for (int j = i + 1; j >= 2; j--) {
-                dp[j] = dp[j - 2] && (s.charAt(i) == s.charAt(i - j + 1));
-                if (dp[j]) {
+        for (int i = 0; i < 2 * s.length() - 1; i++) {
+            int left = i / 2, right = i / 2 + i % 2;
+            while (left >= 0 && right < s.length()) {
+                if (s.charAt(left) == s.charAt(right)) {
                     sum += 1;
+                } else {
+                    break;
                 }
+                left -= 1;
+                right += 1;
             }
-            sum += 1;
         }
         return sum;
     }
