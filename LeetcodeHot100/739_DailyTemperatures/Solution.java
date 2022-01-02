@@ -1,24 +1,17 @@
 import java.util.Arrays;
+import java.util.Stack;
 
 class Solution {
     public int[] dailyTemperatures(int[] temperatures) {
         int[] daysToBeHotter = new int[temperatures.length];
         daysToBeHotter[temperatures.length - 1] = 0;
-        for (int i = temperatures.length - 2; i >= 0; i--) {
-            int target = i + 1;
-            while (target < temperatures.length) {
-                if (temperatures[i] < temperatures[target]) {
-                    daysToBeHotter[i] = target - i;
-                    break;
-                } else {
-                    if (daysToBeHotter[target] == 0) {
-                        daysToBeHotter[i] = 0;
-                        break;
-                    } else {
-                        target += daysToBeHotter[target];
-                    }
-                }
+        Stack<Integer> monotoneStack = new Stack<>();
+        for (int i = 0; i < temperatures.length; i++) {
+            while (!monotoneStack.empty() && temperatures[monotoneStack.peek()] < temperatures[i]) {
+                int index = monotoneStack.pop();
+                daysToBeHotter[index] = i - index;
             }
+            monotoneStack.push(i);
         }
         return daysToBeHotter;
     }
