@@ -5,30 +5,28 @@ import java.util.Set;
 
 class Solution {
     public int lengthOfLongestSubstring(String s) {
-        Queue<Character> substring = new LinkedList<>();
+        int left = 0, right = 0;
         Set<Character> characters = new HashSet<>();
         int longest = 0;
-        for (int i = 0; i < s.length(); i++) {
-            char ch = s.charAt(i);
+        while (right < s.length()) {
+            char ch = s.charAt(right);
             if (characters.contains(ch)) {
-                while (!substring.isEmpty() && substring.peek() != ch) {
-                    char chInsideDuplicate = substring.poll();
-                    characters.remove(chInsideDuplicate);
+                while (s.charAt(left) != ch) {
+                    characters.remove(s.charAt(left));
+                    left += 1;
                 }
-                substring.poll();
+                left += 1;
             } else {
                 characters.add(ch);
             }
-            substring.add(ch);
-            if (substring.size() > longest) {
-                longest = substring.size();
-            }
+            longest = Math.max(longest, right - left + 1);
+            right += 1;
         }
         return longest;
     }
 
     public static void main(String[] args) {
         Solution s = new Solution();
-        System.out.println(s.lengthOfLongestSubstring(""));
+        System.out.println(s.lengthOfLongestSubstring("abcabcbb"));
     }
 }
