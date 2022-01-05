@@ -2,33 +2,34 @@ import java.util.*;
 
 class Solution {
     public List<List<Integer>> permute(int[] nums) {
-        LinkedList<Integer> numList = new LinkedList<>();
-        for (int num : nums) {
-            numList.addLast(num);
-        }
         List<List<Integer>> result = new ArrayList<>();
         List<Integer> onePermutation = new ArrayList<>();
-        permute(numList, onePermutation, result);
+        permute(nums, 0, onePermutation, result);
         return result;
     }
 
-    private void permute(LinkedList<Integer> numList, List<Integer> onePermutation, List<List<Integer>> result) {
-        if (numList.isEmpty()) {
+    private void permute(int[] nums, int index, List<Integer> onePermutation, List<List<Integer>> result) {
+        if (index == nums.length) {
             result.add(List.copyOf(onePermutation));
             return;
         }
-        int length = numList.size();
-        for (int i = 0; i < length; i++) {
-            int num = numList.removeFirst();
-            onePermutation.add(num);
-            permute(numList, onePermutation, result);
+        for (int i = index; i < nums.length; i++) {
+            onePermutation.add(nums[i]);
+            swap(nums, index, i);
+            permute(nums, index + 1, onePermutation, result);
+            swap(nums, index, i);
             onePermutation.remove(onePermutation.size() - 1);
-            numList.addLast(num);
         }
     }
 
+    private void swap(int[] nums, int x, int y) {
+        int temp = nums[x];
+        nums[x] = nums[y];
+        nums[y] = temp;
+    }
+
     public static void main(String[] args) {
-        int[] nums = {1};
+        int[] nums = {1, 2, 3};
         Solution s = new Solution();
         System.out.println(s.permute(nums));
     }
