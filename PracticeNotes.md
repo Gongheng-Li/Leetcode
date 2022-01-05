@@ -216,6 +216,16 @@ O(n^2^)时间复杂度的解法不难实现，普通的动态规划就可以，�
 
 ## 20211229，无重复字符的最长字串
 
+[leetcode链接](https://leetcode-cn.com/problems/longest-substring-without-repeating-characters/)
+
 *关键词* ：滑动窗口
 
 自己想的办法实际上跟答案差不多，都可以用滑动窗口来理解。就是自己的方法一开始用了一个队列比较多余，可以直接双指针解决的。可以优化的点在于用128位的数组代替哈希表。
+
+## 20211230，全排列
+
+[leetcode链接](https://leetcode-cn.com/problems/permutations/)
+
+*关键词* ：回溯
+
+普通的DFS回溯算法，答案做法相比于自己的做法优化了空间复杂度，通过在原数组直接修改避免了用一个额外的标记数组或者用个链表来标记遍历过的数组元素。
