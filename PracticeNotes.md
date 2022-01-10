@@ -245,3 +245,11 @@ O(n^2^)时间复杂度的解法不难实现，普通的动态规划就可以，�
 *关键词* ：辅助栈
 
 辅助栈的简单应用。
+
+## 20220102，合并两个有序链表
+
+[leetcode链接](https://leetcode-cn.com/problems/merge-two-sorted-lists/)
+
+*关键词* ：无
+
+简单得不知道怎么说。
