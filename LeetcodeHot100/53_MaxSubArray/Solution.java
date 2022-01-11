@@ -1,18 +1,16 @@
 class Solution {
     public int maxSubArray(int[] nums) {
-        int sum = 0;
-        int minPrefix = 0;
+        int maxEndsWithThis = 0;
         int maxSubArraySum = Integer.MIN_VALUE;
         for (int num : nums) {
-            sum += num;
-            maxSubArraySum = Math.max(sum - minPrefix, maxSubArraySum);
-            minPrefix = Math.min(sum, minPrefix);
+            maxEndsWithThis = Math.max(num, maxEndsWithThis + num);
+            maxSubArraySum = Math.max(maxEndsWithThis, maxSubArraySum);
         }
         return maxSubArraySum;
     }
 
     public static void main(String[] args) {
-        int[] nums = {1};
+        int[] nums = {-2, 1, -3, 4, -1, 2, 1, -5, 4};
         Solution s = new Solution();
         System.out.println(s.maxSubArray(nums));
     }
