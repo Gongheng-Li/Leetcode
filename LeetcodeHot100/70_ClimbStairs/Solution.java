@@ -3,13 +3,16 @@ class Solution {
         if (n <= 2) {
             return n;
         }
-        int formerOfFormer = 1, former = 2;
-        for (int i = 2; i < n; i++) {
-            int temp = former;
-            former = formerOfFormer + former;
-            formerOfFormer = temp;
-        }
-        return former;
+
+    }
+
+    private int[] calcSecondOrderMatrixPower(int[][] matrix, int n) {
+
+    }
+
+    int[][] calcSecondOrderMatrixMultiplication(int[][] matrix1, int[][] matrix2) {
+        int[][] result = new int[2][2];
+
     }
 
     public static void main(String[] args) {
