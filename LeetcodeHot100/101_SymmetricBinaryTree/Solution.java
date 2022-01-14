@@ -1,3 +1,6 @@
+import java.util.LinkedList;
+import java.util.Queue;
+
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
@@ -14,7 +17,7 @@
  * }
  */
 class Solution {
-    public class TreeNode {
+    public static class TreeNode {
         int val;
         TreeNode left;
         TreeNode right;
@@ -30,19 +33,23 @@ class Solution {
     public boolean isSymmetric(TreeNode root) {
         if (root == null) {
             return true;
-        } else {
-            return compareSymmetricNode(root.left, root.right);
         }
-    }
-
-    private boolean compareSymmetricNode(TreeNode root1, TreeNode root2) {
-        if (root1 == null && root2 == null) {
-            return true;
-        } else if (root1 == null || root2 == null) {
-            return false;
-        } else {
-            return root1.val == root2.val && compareSymmetricNode(root1.left, root2.right) &&
-                    compareSymmetricNode(root1.right, root2.left);
+        Queue<TreeNode> iterationTool = new LinkedList<>();
+        iterationTool.add(root.left);
+        iterationTool.add(root.right);
+        while (!iterationTool.isEmpty()) {
+            TreeNode oneNode = iterationTool.poll();
+            TreeNode theOtherNode = iterationTool.poll();
+            if (oneNode == null && theOtherNode == null) {
+                continue;
+            } else if (oneNode == null || theOtherNode == null || oneNode.val != theOtherNode.val) {
+                return false;
+            }
+            iterationTool.add(oneNode.left);
+            iterationTool.add(theOtherNode.right);
+            iterationTool.add(oneNode.right);
+            iterationTool.add(theOtherNode.left);
         }
+        return true;
     }
 }
