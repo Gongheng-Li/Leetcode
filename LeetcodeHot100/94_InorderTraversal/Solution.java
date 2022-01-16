@@ -32,16 +32,31 @@ class Solution {
 
     public List<Integer> inorderTraversal(TreeNode root) {
         List<Integer> result = new ArrayList<>();
-        inorderTraversal(root, result);
+        TreeNode currentNode = root;
+        while (currentNode != null) {
+            if (currentNode.left != null) {
+                TreeNode predecessor = getPredecessor(currentNode);
+                if (predecessor.right == null) {
+                    predecessor.right = currentNode;
+                    currentNode = currentNode.left;
+                } else {
+                    predecessor.right = null;
+                    result.add(currentNode.val);
+                    currentNode = currentNode.right;
+                }
+            } else {
+                result.add(currentNode.val);
+                currentNode = currentNode.right;
+            }
+        }
         return result;
     }
 
-    private void inorderTraversal(TreeNode root, List<Integer> result) {
-        if (root == null) {
-            return;
+    private TreeNode getPredecessor(TreeNode root) {
+        TreeNode predecessor = root.left;
+        while (predecessor.right != null && predecessor.right != root) {
+            predecessor = predecessor.right;
         }
-        inorderTraversal(root.left, result);
-        result.add(root.val);
-        inorderTraversal(root.right, result);
+        return predecessor;
     }
 }
