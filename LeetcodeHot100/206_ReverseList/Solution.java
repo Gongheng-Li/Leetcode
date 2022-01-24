@@ -18,17 +18,13 @@ class Solution {
     }
 
     public ListNode reverseList(ListNode head) {
-        if (head == null) {
-            return null;
-        }
-        ListNode current = head, next = head.next;
+        ListNode current = null, next = head;
         while (next != null) {
             ListNode temp = next.next;
             next.next = current;
             current = next;
             next = temp;
         }
-        head.next = null;
         return current;
     }
 }
