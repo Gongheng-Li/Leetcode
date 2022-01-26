@@ -296,11 +296,15 @@ O(n^2^)时间复杂度的解法不难实现，普通的动态规划就可以，�
 
 ## 20220108，买卖股票的最佳时机
 
+[leetcode链接](https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock/)
+
 *关键词* ：无
 
 买卖股票系列最简单的题，不过不同于同系列其他题需要用到二维动态规划，本题只需要记录最小值，不具有太大参考价值。
 
 ## 20220109，只出现一次的数字
+
+[leetcode链接](https://leetcode-cn.com/problems/single-number/)
 
 *关键词* ：位运算
 
@@ -308,11 +312,15 @@ O(n^2^)时间复杂度的解法不难实现，普通的动态规划就可以，�
 
 ## 20220110，环形链表
 
+[leetcode链接](https://leetcode-cn.com/problems/linked-list-cycle/)
+
 *关键词* ：快慢指针，Floyd判圈算法
 
 基础的Floyd判圈算法应用，但是还没有让求进环节点。
 
 ## 20220111，最小栈
+
+[leetcode链接](https://leetcode-cn.com/problems/min-stack/)
 
 *关键词* ：无
 
@@ -320,11 +328,15 @@ O(n^2^)时间复杂度的解法不难实现，普通的动态规划就可以，�
 
 ## 20220112，相交链表
 
+[leetcode链接](https://leetcode-cn.com/problems/intersection-of-two-linked-lists/)
+
 *关键词* ：无
 
 两个指针分别从各自头节点出发，走完当前链表再去走另一个链表，直到两个指针相等，即指向相交节点或者都为`null`，也是属于没做过很难想到，但是做过一遍就完全没难度的题。
 
 ## 20220113，多数元素
+
+[leetcode链接](https://leetcode-cn.com/problems/majority-element/)
 
 *关键词* ：摩尔投票法
 
@@ -332,12 +344,24 @@ O(n^2^)时间复杂度的解法不难实现，普通的动态规划就可以，�
 
 ## 20220114，反转链表
 
+[leetcode链接](https://leetcode-cn.com/problems/reverse-linked-list/)
+
 *关键词* ：双指针
 
 双指针同时前进，遍历一遍即可。需要注意的是可以将给出的`head`头指针为`null`的情况与其他情况合在一起。
 
 ## 20220115，翻转二叉树
 
+[leetcode链接](https://leetcode-cn.com/problems/invert-binary-tree/)
+
 *关键词* ：无
 
 基础递归。
+
+## 20220116，回文链表
+
+[leetcode链接](https://leetcode-cn.com/problems/palindrome-linked-list/)
+
+*关键词* ：无
+
+不太好想的一个思路，判断链表的回文是通过先找到中间点，在切下右半部分，然后利用[反转链表](##20220114，反转链表)的方法将右半部分反转，再与左半部分比较，实现并不难，也没有什么特别刁钻的方法，不过第一遍做要想到这种做法还是要花点时间的。
