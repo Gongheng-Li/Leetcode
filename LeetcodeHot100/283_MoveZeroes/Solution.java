@@ -4,26 +4,27 @@ import java.util.List;
 
 class Solution {
     public void moveZeroes(int[] nums) {
-        List<Integer> zeroPositions = new ArrayList<>();
-        for (int i = 0; i < nums.length; i++) {
-            if (nums[i] == 0) {
-                zeroPositions.add(i);
+        int wind = 0, forest = 0;
+        while (wind < nums.length) {
+            while (wind < nums.length && nums[wind] == 0) {
+                wind += 1;
             }
-        }
-        int zeroCount = 0;
-        for (int i = 0; i < nums.length - zeroPositions.size(); i++) {
-            while (zeroCount < zeroPositions.size() && i + zeroCount >= zeroPositions.get(zeroCount)) {
-                zeroCount += 1;
+            if (wind < nums.length) {
+                swap(nums, wind, forest);
+                wind += 1;
+                forest += 1;
             }
-            nums[i] = nums[i + zeroCount];
-        }
-        for (int i = nums.length - zeroPositions.size(); i < nums.length; i++) {
-            nums[i] = 0;
         }
     }
 
+    private void swap(int[] nums, int x, int y) {
+        int temp = nums[x];
+        nums[x] = nums[y];
+        nums[y] = temp;
+    }
+
     public static void main(String[] args) {
-        int[] nums = {1, 0, 0, 0, 3, 12, 0, 0};
+        int[] nums = {1};
         Solution s = new Solution();
         s.moveZeroes(nums);
         System.out.println(Arrays.toString(nums));
