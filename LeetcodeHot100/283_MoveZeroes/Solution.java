@@ -6,14 +6,11 @@ class Solution {
     public void moveZeroes(int[] nums) {
         int wind = 0, forest = 0;
         while (wind < nums.length) {
-            while (wind < nums.length && nums[wind] == 0) {
-                wind += 1;
-            }
-            if (wind < nums.length) {
-                swap(nums, wind, forest);
-                wind += 1;
+            if (nums[wind] != 0) {
+                swap(nums, forest, wind);
                 forest += 1;
             }
+            wind += 1;
         }
     }
 
