@@ -2,10 +2,13 @@ import java.util.Arrays;
 
 class Solution {
     public int[] countBits(int n) {
+        int highestBit = 0;
         int[] nums = new int[n + 1];
-        nums[0] = 0;
         for (int i = 1; i <= n; i++) {
-            nums[i] = nums[i / 2] + i % 2;
+            if ((i & (i - 1)) == 0) {
+                highestBit = i;
+            }
+            nums[i] = nums[i - highestBit] + 1;
         }
         return nums;
     }
