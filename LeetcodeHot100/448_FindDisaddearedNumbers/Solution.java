@@ -8,9 +8,10 @@ class Solution {
             if (nums[i] == -1 || nums[nums[i] - 1] == -1) {
                 i += 1;
             } else {
+                boolean flag = nums[i] - 1 != i;
                 int temp = nums[nums[i] - 1];
                 nums[nums[i] - 1] = -1;
-                if (temp - 1 != i) {
+                if (flag) {
                     nums[i] = temp;
                 }
             }
@@ -28,7 +29,7 @@ class Solution {
 
     public static void main(String[] args) {
         Solution s = new Solution();
-        int[] nums = {4, 3, 2, 7, 8, 2, 3, 1};
+        int[] nums = {1};
         System.out.println(s.findDisappearedNumbers(nums));
     }
 }
