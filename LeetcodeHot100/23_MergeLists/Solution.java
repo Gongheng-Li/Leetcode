@@ -27,24 +27,37 @@ class Solution {
     }
 
     public ListNode mergeKLists(ListNode[] lists) {
-        PriorityQueue<ListNode> nodes =
-                new PriorityQueue<>((Object o1, Object o2) -> ((ListNode) o1).val - ((ListNode) o2).val);
-//        nodes.addAll(Arrays.asList(lists));
-        for (ListNode list : lists) {
-            if (list != null) {
-                nodes.add(list);
-            }
+        return mergeKLists(lists, 0, lists.length - 1);
+    }
+
+    private ListNode mergeKLists(ListNode[] lists, int left, int right) {
+        if (left > right) {
+            return null;
+        } else if (left == right) {
+            return lists[left];
+        } else {
+            int middle = (left + right) / 2;
+            return mergeTwoLists(mergeKLists(lists, left, middle), mergeKLists(lists, middle + 1, right));
         }
+    }
+
+    private ListNode mergeTwoLists(ListNode list1, ListNode list2) {
         ListNode sentinel = new ListNode();
         ListNode current = sentinel;
-        while (!nodes.isEmpty()) {
-            ListNode node = nodes.poll();
-            current.next = node;
-            current = current.next;
-            node = node.next;
-            if (node != null) {
-                nodes.add(node);
+        while (list1 != null && list2 != null) {
+            if (list1.val < list2.val) {
+                current.next = list1;
+                list1 = list1.next;
+            } else {
+                current.next = list2;
+                list2 = list2.next;
             }
+            current = current.next;
+        }
+        if (list1 == null) {
+            current.next = list2;
+        } else {
+            current.next = list1;
         }
         return sentinel.next;
     }
