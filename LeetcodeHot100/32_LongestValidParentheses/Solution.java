@@ -7,17 +7,11 @@ class Solution {
                 dp[i] = 0;
                 continue;
             }
-            int result = dp[i - 1] + 2;
-            int formerEnd = i - dp[i - 1] - 2;
-            while (formerEnd > 0) {
-                if (dp[formerEnd] == 0) {
-                    break;
-                }
-                result += dp[formerEnd];
-                formerEnd -= dp[formerEnd];
+            dp[i] = dp[i - 1] + 2;
+            if (i - dp[i - 1] - 2 > 0) {
+                dp[i] += dp[i - dp[i - 1] - 2];
             }
-            dp[i] = result;
-            longestLength = Math.max(longestLength, result);
+            longestLength = Math.max(longestLength, dp[i]);
         }
         return longestLength;
     }
