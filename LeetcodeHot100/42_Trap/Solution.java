@@ -1,17 +1,24 @@
-import java.util.Stack;
-
 class Solution {
     public int trap(int[] height) {
+        int left = 0, right = height.length - 1;
+        int leftMax = 0, rightMax = 0;
         int volume = 0;
-        Stack<Integer> stack = new Stack<>();
-        for (int i = 0; i < height.length; i++) {
-            while (!stack.empty() && height[i] > height[stack.peek()]) {
-                int bottom = stack.pop();
-                if (!stack.empty()) {
-                    volume += (i - stack.peek() - 1) * (Math.min(height[stack.peek()], height[i]) - height[bottom]);
+        while (left < right) {
+            if (height[left] < height[right]) {
+                if (height[left] > leftMax) {
+                    leftMax = height[left];
+                } else {
+                    volume += leftMax - height[left];
                 }
+                left += 1;
+            } else {
+                if (height[right] > rightMax) {
+                    rightMax = height[right];
+                } else {
+                    volume += rightMax - height[right];
+                }
+                right -= 1;
             }
-            stack.push(i);
         }
         return volume;
     }
