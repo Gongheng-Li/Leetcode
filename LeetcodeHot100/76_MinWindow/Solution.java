@@ -1,55 +1,43 @@
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
-
 class Solution {
     public String minWindow(String s, String t) {
-        Map<Character, Integer> current = new HashMap<>();
-        Map<Character, Integer> target = new HashMap<>();
-        for (int i = 0; i < t.length(); i++) {
-            char ch = t.charAt(i);
-            target.put(ch, target.getOrDefault(ch, 0) + 1);
+        int[] target = new int[128];
+        int[] current = new int[128];
+        int sLength = s.length(), tLength = t.length();
+        for (int i = 0; i < tLength; i++) {
+            target[t.charAt(i)] += 1;
         }
+        int minStart = 0, minLength = -1;
+        int count = 0;
         int left = 0, right = 0;
-        int minLeft = 0, minRight = -1;
-        while (right < s.length()) {
-            char rightCh = s.charAt(right);
-            current.put(rightCh, current.getOrDefault(rightCh, 0) + 1);
-            if (contains(current, target)) {
-                while (left <= right) {
-                    char leftCh = s.charAt(left);
-                    if (current.get(leftCh) - 1 > 0) {
-                        current.put(leftCh, current.get(leftCh) - 1);
-                    } else {
-                        current.remove(leftCh);
+        while (right < sLength) {
+            char rightChar = s.charAt(right);
+            if (target[rightChar] > 0) {
+                current[rightChar] += 1;
+                if (target[rightChar] >= current[rightChar]) {
+                    count += 1;
+                }
+                while (count == tLength) {
+                    if (right - left < minLength || minLength == -1) {
+                        minLength = right - left;
+                        minStart = left;
                     }
-                    if (!contains(current, target)) {
-                        if (right - left < minRight - minLeft || minRight == -1) {
-                            minLeft = left;
-                            minRight = right;
+                    char leftChar = s.charAt(left);
+                    if (target[leftChar] > 0) {
+                        if (target[leftChar] >= current[leftChar]) {
+                            count -= 1;
                         }
-                        left += 1;
-                        break;
+                        current[leftChar] -= 1;
                     }
                     left += 1;
                 }
             }
             right += 1;
         }
-        return s.substring(minLeft, minRight + 1);
-    }
-
-    private boolean contains(Map<Character, Integer> current, Map<Character, Integer> target) {
-        for (char key : target.keySet()) {
-            if (!current.containsKey(key) || current.get(key) < target.get(key)) {
-                return false;
-            }
-        }
-        return true;
+        return s.substring(minStart, minStart + minLength + 1);
     }
 
     public static void main(String[] args) {
         Solution s = new Solution();
-        System.out.println(s.minWindow("a", "aa"));
+        System.out.println(s.minWindow("ADOBECODEBANC", "ABC"));
     }
 }
