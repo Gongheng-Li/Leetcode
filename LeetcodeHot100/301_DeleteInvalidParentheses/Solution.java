@@ -1,13 +1,19 @@
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 class Solution {
     public List<String> removeInvalidParentheses(String s) {
         int leftToRemove = 0, rightToRemove = 0;
+        List<Integer> leftPos = new ArrayList<>();
+        List<Integer> rightPos = new ArrayList<>();
         for (int i = 0; i < s.length(); i++) {
             if (s.charAt(i) == '(') {
+                leftPos.add(i);
                 leftToRemove += 1;
             } else if (s.charAt(i) == ')') {
+                rightPos.add(i);
                 if (leftToRemove > 0) {
                     leftToRemove -= 1;
                 } else {
@@ -15,49 +21,76 @@ class Solution {
                 }
             }
         }
-        List<String> result = new ArrayList<>();
-        helper(s, 0, leftToRemove, rightToRemove, result);
-        return result;
-    }
-
-    private void helper(String s, int start, int leftToRemove, int rightToRemove, List<String> result) {
-        if (leftToRemove == 0 && rightToRemove == 0) {
-            if (checkValid(s)) {
-                result.add(s);
-                return;
-            }
-        } else if (leftToRemove + rightToRemove > s.length() - start) {
-            return;
-        }
-        for (int i = start; i < s.length(); i++) {
-            if (i != start && s.charAt(i) == s.charAt(i - 1)) {
-                continue;
-            }
-            if (leftToRemove > 0 && s.charAt(i) == '(') {
-                helper(s.substring(0, i) + s.substring(i + 1), i, leftToRemove - 1, rightToRemove, result);
-            } else if (rightToRemove > 0 && s.charAt(i) == ')') {
-                helper(s.substring(0, i) + s.substring(i + 1), i, leftToRemove, rightToRemove - 1, result);
+        List<Integer> leftMasks = new ArrayList<>();
+        List<Integer> rightMasks = new ArrayList<>();
+        int leftCount = leftPos.size(), rightCount = rightPos.size();
+        for (int i = 0; i < (1 << leftCount); i++) {
+            if (Integer.bitCount(i) == leftToRemove) {
+                leftMasks.add(i);
             }
         }
-    }
-
-    private boolean checkValid(String s) {
-        int count = 0;
-        for (int i = 0; i < s.length(); i++) {
-            if (s.charAt(i) == '(') {
-                count += 1;
-            } else if (s.charAt(i) == ')') {
-                if (count <= 0) {
-                    return false;
+        for (int i = 0; i < (1 << rightCount); i++) {
+            if (Integer.bitCount(i) == rightToRemove) {
+                rightMasks.add(i);
+            }
+        }
+        Set<String> resultSet = new HashSet<>();
+        for (int leftMask : leftMasks) {
+            for (int rightMask : rightMasks) {
+                if (checkValid(s, leftMask, rightMask, leftPos, rightPos)) {
+                    resultSet.add(recoverString(s, leftMask, rightMask, leftPos, rightPos));
                 }
-                count -= 1;
+            }
+        }
+        return new ArrayList<>(resultSet);
+    }
+
+    private boolean checkValid(String s, int leftMask, int rightMask, List<Integer> leftPos, List<Integer> rightPos) {
+        int count = 0;
+        int leftIndex = 0, rightIndex = 0;
+        for (int i = 0; i < s.length(); i++) {
+            if (leftIndex < leftPos.size() && i == leftPos.get(leftIndex)) {
+                if ((leftMask & (1 << leftIndex)) == 0) {
+                    count += 1;
+                }
+                leftIndex += 1;
+            } else if (rightIndex < rightPos.size() && i == rightPos.get(rightIndex)) {
+                if ((rightMask & (1 << rightIndex)) == 0) {
+                    if (count <= 0) {
+                        return false;
+                    } else {
+                        count -= 1;
+                    }
+                }
+                rightIndex += 1;
             }
         }
         return true;
     }
 
+    private String recoverString (String s, int leftMask, int rightMask, List<Integer> leftPos, List<Integer> rightPos) {
+        int leftIndex = 0, rightIndex = 0;
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i < s.length(); i++) {
+            if (leftIndex < leftPos.size() && i == leftPos.get(leftIndex)) {
+                if ((leftMask & (1 << leftIndex)) == 0) {
+                    stringBuilder.append('(');
+                }
+                leftIndex += 1;
+            } else if (rightIndex < rightPos.size() && i == rightPos.get(rightIndex)) {
+                if ((rightMask & (1 << rightIndex)) == 0) {
+                    stringBuilder.append(')');
+                }
+                rightIndex += 1;
+            } else {
+                stringBuilder.append(s.charAt(i));
+            }
+        }
+        return stringBuilder.toString();
+    }
+
     public static void main(String[] args) {
         Solution s = new Solution();
-        System.out.println(s.removeInvalidParentheses(")("));
+        System.out.println(s.removeInvalidParentheses("(a)())()"));
     }
 }
