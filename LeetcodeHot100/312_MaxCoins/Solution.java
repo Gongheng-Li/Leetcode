@@ -4,30 +4,23 @@ public class Solution {
     public int maxCoins(int[] nums) {
         int[] extendedNums = new int[nums.length + 2];
         extendedNums[0] = 1;
-        extendedNums[nums.length + 1] = 1;
+        extendedNums[extendedNums.length - 1] = 1;
         System.arraycopy(nums, 0, extendedNums, 1, nums.length);
-        int[][] rememberedSet = new int[nums.length + 2][nums.length + 2];
-        for (int[] ints : rememberedSet) {
-            Arrays.fill(ints, -1);
+        int[][] dp = new int[nums.length + 2][nums.length + 2];
+        for (int length = 1; length <= nums.length; length++) {
+            for (int i = 0; i < nums.length + 1; i++) {
+                if (i + length >= nums.length + 1) {
+                    continue;
+                }
+                int sum = 0;
+                for (int j = i + 1; j < i + length + 1; j++) {
+                    sum = Math.max(sum, extendedNums[j] * extendedNums[i] * extendedNums[i + length + 1]
+                            + dp[i][j] + dp[j][i + length + 1]);
+                }
+                dp[i][i + length + 1] = sum;
+            }
         }
-        return helper(extendedNums, 0, nums.length + 1, rememberedSet);
-    }
-
-    private int helper(int[] nums, int start, int end, int[][] rememberedSet) {
-        if (start >= end - 1) {
-            return 0;
-        }
-        if (rememberedSet[start][end] != -1) {
-            return rememberedSet[start][end];
-        }
-        int sum = 0;
-        for (int i = start + 1; i < end; i++) {
-            int iSum = nums[i] * nums[start] * nums[end] +
-                    helper(nums, start, i, rememberedSet) + helper(nums, i, end, rememberedSet);
-            sum = Math.max(sum, iSum);
-        }
-        rememberedSet[start][end] = sum;
-        return sum;
+        return dp[0][nums.length + 1];
     }
 
     public static void main(String[] args) {
