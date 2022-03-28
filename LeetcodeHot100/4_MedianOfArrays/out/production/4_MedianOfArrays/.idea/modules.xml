@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/4_MedianOfArrays.iml" filepath="$PROJECT_DIR$/.idea/4_MedianOfArrays.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../../../MySQLStudy/MySQL_JDBC.iml" filepath="$PROJECT_DIR$/../../../../MySQLStudy/MySQL_JDBC.iml" />
     </modules>
   </component>
 </project>
