@@ -525,3 +525,11 @@ O(n^2^)时间复杂度的解法不难实现，普通的动态规划就可以，�
 *关键词* ：图，DFS，BFS
 
 最最基础的图论题目，BFS和DFS都可以做。
+
+## 20220217，二分查找
+
+[leetcode链接](https://leetcode-cn.com/problems/binary-search/)
+
+*关键词* ：二分查找
+
+基础二分查找，关键在于区间边界是否包含(`right = nums.length` 或 `right = nums.length - 1`)，循环比较是否取等(`left < right` 或 `left <= right`)，以及移动右边界的位置(`right = middle` 或 `right = middle + 1`)这三个问题，实际只有两种情况，需要明确。
