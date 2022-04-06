@@ -600,11 +600,15 @@ O(n^2^)时间复杂度的解法不难实现，普通的动态规划就可以，�
 
 ## 20220226，链表相交
 
+[leetcode链接](https://leetcode-cn.com/problems/intersection-of-two-linked-lists-lcci/)
+
 *关键词* ：双指针
 
 这个第一次做的话能想到双指针非常不容易，但是做过一遍之后就没有什么难处了，还是要好好想一些小细节，不然会非常难受。
 
 ## 20220227，环形链表II
+
+[leetcode链接](https://leetcode-cn.com/problems/linked-list-cycle-ii/)
 
 *关键词* ：快慢指针
 
@@ -612,6 +616,16 @@ O(n^2^)时间复杂度的解法不难实现，普通的动态规划就可以，�
 
 ## 20220228，有效的字母异位词
 
+[leetcode链接](https://leetcode-cn.com/problems/valid-anagram/)
+
 *关键词* ：哈希表
 
 基础的哈希思想。
+
+## 20220301，两个数组的交集
+
+[leetcode链接](https://leetcode-cn.com/problems/intersection-of-two-arrays/)
+
+*关键词* ：哈希表
+
+这题有点刻意了，难度并不大。不过排序然后双指针的解法还是比较有意思的，值得学习。
