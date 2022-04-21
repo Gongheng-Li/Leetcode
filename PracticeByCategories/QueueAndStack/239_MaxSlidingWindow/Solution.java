@@ -4,23 +4,27 @@ import java.util.Deque;
 
 class Solution {
     public int[] maxSlidingWindow(int[] nums, int k) {
-        Deque<Integer> deque = new ArrayDeque<>();
+        int[] prefix = new int[nums.length];
+        int[] suffix = new int[nums.length];
         int[] result = new int[nums.length - k + 1];
-        for (int i = 0; i < k - 1; i++) {
-            while (!deque.isEmpty() && nums[deque.peekLast()] < nums[i]) {
-                deque.removeLast();
+        for (int i = 0; i < nums.length; i++) {
+            if (i % k == 0) {
+                prefix[i] = nums[i];
+            } else {
+                prefix[i] = Math.max(nums[i], prefix[i - 1]);
             }
-            deque.add(i);
         }
-        for (int i = k - 1; i < nums.length; i++) {
-            while (!deque.isEmpty() && nums[deque.peekLast()] < nums[i]) {
-                deque.removeLast();
+        for (int i = nums.length - 1; i >= 0; i--) {
+            if (i == nums.length - 1) {
+                suffix[i] = nums[i];
+            } else if ((i + 1) % k == 0) {
+                suffix[i] = nums[i];
+            } else {
+                suffix[i] = Math.max(suffix[i + 1], nums[i]);
             }
-            deque.add(i);
-            while (!deque.isEmpty() && i - deque.peekFirst() >= k) {
-                deque.removeFirst();
-            }
-            result[i - k + 1] = nums[deque.peekFirst()];
+        }
+        for (int i = 0; i < result.length; i++) {
+            result[i] = Math.max(prefix[i + k - 1], suffix[i]);
         }
         return result;
     }
