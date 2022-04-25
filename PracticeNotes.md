@@ -819,3 +819,11 @@ O(n^2^)时间复杂度的解法不难实现，普通的动态规划就可以，�
 *关键词* ：BFS
 
 基础的DFS或BFS。
+
+### 20220324，二叉树的最小深度
+
+[leetcode链接](https://leetcode-cn.com/problems/minimum-depth-of-binary-tree/)
+
+*关键词* ：BFS
+
+也是DFS和BFS都可以，不过DFS理论上来说需要遍历所有的节点，但是BFS不用，所以应该还是BFS好一点。需要注意的是这里深度是到最近的叶子节点的距离，而不是二叉树不再满的层数。
