@@ -37,25 +37,43 @@ public class Solution {
         if (leftDepth == rightDepth) {
             return (int) Math.pow(2, leftDepth) - 1;
         }
-        return countNodes(root, rightDepth);
+        int left = (int) Math.pow(2, rightDepth), right = (int) Math.pow(2, leftDepth) - 1;
+        int target = left;
+        int h = 1 << (rightDepth - 1);
+        while (left <= right) {
+            int middle = (left + right) / 2;
+            if (checkExistence(root, middle, h)) {
+                target = middle;
+                left = middle + 1;
+            } else {
+                right = middle - 1;
+            }
+        }
+        return target;
     }
 
-    private int countNodes(TreeNode node, int layers) {
-        if (node.left == null) {
-            return 1;
-        } else if (node.right == null) {
-            return 2;
+    private boolean checkExistence(TreeNode root, int index, int h) {
+        TreeNode node = root;
+        while (h > 0) {
+            if ((index & h) > 0) {
+                node = node.right;
+            } else {
+                node = node.left;
+            }
+            h >>= 1;
         }
-        TreeNode n = node.left;
-        int count = 1;
-        while (n != null) {
-            n = n.right;
-            count += 1;
-        }
-        if (count == layers) {
-            return countNodes(node.left, layers - 1) + (int) Math.pow(2, layers - 1);
-        } else {
-            return countNodes(node.right, layers - 1) + (int) Math.pow(2, layers);
-        }
+        return node != null;
+    }
+
+    public static void main(String[] args) {
+        Solution s = new Solution();
+        TreeNode node6 = s.new TreeNode(6);
+        TreeNode node5 = s.new TreeNode(5);
+        TreeNode node4 = s.new TreeNode(4);
+        TreeNode node3 = s.new TreeNode(3, node6, null);
+        TreeNode node2 = s.new TreeNode(2, node4, node5);
+        TreeNode node1 = s.new TreeNode(1, node2, node3);
+
+        System.out.println(s.countNodes(node1));
     }
 }
