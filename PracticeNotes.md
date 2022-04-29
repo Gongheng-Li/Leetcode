@@ -864,6 +864,14 @@ O(n^2^)时间复杂度的解法不难实现，普通的动态规划就可以，�
 
 [leetcode链接](https://leetcode-cn.com/problems/find-bottom-left-tree-value/)
 
-*关键词* ：广度优先搜索(BFS)
+*关键词* ：BFS
 
 直球的BFS的应用。
+
+### 20220330，路径总和
+
+[leetcode链接](https://leetcode-cn.com/problems/path-sum/)
+
+*关键词* ：DFS
+
+简单的DFS应用。
