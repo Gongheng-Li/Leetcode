@@ -1,3 +1,6 @@
+import java.util.ArrayDeque;
+import java.util.Deque;
+
 class Solution {
 
     public class TreeNode {
@@ -20,21 +23,27 @@ class Solution {
     }
 
     public TreeNode buildTree(int[] inorder, int[] postorder) {
-        return buildTree(inorder, 0, inorder.length - 1, postorder, 0, postorder.length - 1);
-    }
-
-    private TreeNode buildTree(int[] inorder, int inorderStart, int inorderEnd, int[] postorder, int postorderStart, int postorderEnd) {
-        if (inorderStart > inorderEnd) {
-            return null;
+        int index = inorder.length - 1;
+        TreeNode root = new TreeNode(postorder[postorder.length - 1]);
+        Deque<TreeNode> stack = new ArrayDeque<>();
+        stack.push(root);
+        for (int i = postorder.length - 2; i >= 0; i--) {
+            TreeNode node = new TreeNode(postorder[i]);
+            if (!stack.isEmpty() && stack.peek().val != inorder[index]) {
+                stack.peek().right = node;
+                stack.push(node);
+            } else {
+                while (!stack.isEmpty()) {
+                    TreeNode popNode = stack.pop();
+                    index -= 1;
+                    if (stack.isEmpty() || stack.peek().val != inorder[index]) {
+                        popNode.left = node;
+                        stack.push(node);
+                        break;
+                    }
+                }
+            }
         }
-        int rootVal = postorder[postorderEnd];
-        TreeNode root = new TreeNode(rootVal);
-        int index = inorderStart;
-        while (inorder[index] != rootVal) {
-            index += 1;
-        }
-        root.left = buildTree(inorder, inorderStart, index - 1, postorder, postorderStart, postorderStart + index - inorderStart - 1);
-        root.right = buildTree(inorder, index + 1, inorderEnd, postorder, postorderStart + index - inorderStart, postorderEnd - 1);
         return root;
     }
 
