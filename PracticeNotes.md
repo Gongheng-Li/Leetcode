@@ -933,3 +933,11 @@ O(n^2^)时间复杂度的解法不难实现，普通的动态规划就可以，�
 *关键词* ：Morris遍历
 
 找众数这个还是有点麻烦的，不过也不算难，放到BST里也就只需要结合一下Morris遍历，整体还行。
+
+### 20220407，二叉树的最近公共祖先
+
+[leetcode链接](https://leetcode-cn.com/problems/lowest-common-ancestor-of-a-binary-tree/)
+
+*关键词* ：DFS
+
+代码看上挺简洁，但是实际上思路还是挺绕的，总之就是递归，并根据两个子节点返回值是否为空来判断当前状态。
