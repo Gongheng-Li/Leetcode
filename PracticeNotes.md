@@ -973,3 +973,11 @@ O(n^2^)时间复杂度的解法不难实现，普通的动态规划就可以，�
 *关键词* ：无
 
 明显迭代做法空间复杂度更优，答案竟然只给出了递归的做法。
+
+### 20220412，将有序数组转换为二叉搜索树
+
+[leetcode链接](https://leetcode.cn/problems/convert-sorted-array-to-binary-search-tree/)
+
+*关键词* ：无
+
+简单递归。
