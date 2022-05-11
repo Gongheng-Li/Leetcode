@@ -981,3 +981,11 @@ O(n^2^)时间复杂度的解法不难实现，普通的动态规划就可以，�
 *关键词* ：无
 
 简单递归。
+
+### 20220413，把二叉搜索树转换为累加树
+
+[leetcode链接](https://leetcode.cn/problems/convert-bst-to-greater-tree/)
+
+*关键词* ：Morris遍历
+
+又复习了一遍Morris遍历，这次还是写得很磕绊，不过好歹是写出来了。
