@@ -1,12 +1,16 @@
 class Solution {
     public int maxProfit(int[] prices, int fee) {
-        int holdingStock = -1 * prices[0], holdingNothing = 0;
+        int buyPrice = prices[0] + fee;
+        int profit = 0;
         for (int i = 1; i < prices.length; i++) {
-            int temp = holdingNothing;
-            holdingNothing = Math.max(holdingNothing, holdingStock + prices[i] - fee);
-            holdingStock = Math.max(holdingStock, holdingNothing - prices[i]);
+            if (prices[i] + fee < buyPrice) {
+                buyPrice = prices[i] + fee;
+            } else if (prices[i] > buyPrice) {
+                profit += prices[i] - buyPrice;
+                buyPrice = prices[i];
+            }
         }
-        return holdingNothing;
+        return profit;
     }
 
     public static void main(String[] args) {
