@@ -5,14 +5,13 @@ class Solution {
         if (m > n) {
             return uniquePaths(n, m);
         }
-        int[] dp = new int[m];
-        Arrays.fill(dp, 1);
-        for (int i = 0; i < n - 1; i++) {
-            for (int j = 1; j < m; j++) {
-                dp[j] = dp[j - 1] + dp[j];
-            }
+        m -= 1;
+        n -= 1;
+        long result = 1;
+        for (int i = m + 1, j = 1; j <= n; i++, j++) {
+            result = result * i / j;
         }
-        return dp[m - 1];
+        return (int) result;
     }
 
     public static void main(String[] args) {
