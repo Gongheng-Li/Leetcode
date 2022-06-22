@@ -1333,3 +1333,29 @@ return (int) result;
 *关键词* ：动态规划
 
 这个好像确实也只能是O(n^2^)的时间复杂度。
+
+### 20220525，分割等和子集
+
+[leetcode链接](https://leetcode.cn/problems/partition-equal-subset-sum/)
+
+*关键词* ：动态规划，背包问题
+
+背包问题中的基本问题，主要在于理解背包问题的原理，如果能理解原理，那么这题也没什么难的。需要注意的是在进行动态规划的空间优化时，嵌套双层遍历中，每次遍历需要先判断`j`是否大于`nums[i]`，都则会出现数组越界的问题，因此与其将代码写作如下形式：
+
+```java
+for (int j = target; j >= 1; j--) {
+    if (j >= nums[i]) {
+        dp[j] |= dp[j - nums[i]];
+    }
+}
+```
+
+不妨改为：
+
+```java
+for (int j = target; j >= nums[i]; j--) {
+    dp[j] |= dp[j - nums[i]];
+}
+```
+
+这样可以进一步节省运算时间。
