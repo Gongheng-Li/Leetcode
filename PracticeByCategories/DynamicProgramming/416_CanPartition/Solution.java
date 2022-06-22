@@ -8,26 +8,23 @@ class Solution {
             return false;
         }
         int target = sum / 2;
-        boolean[][] dp = new boolean[nums.length][target + 1];
-        for (int i = 0; i <= target; i++) {
-            dp[0][i] = nums[0] == i;
-        }
-        for (int i = 0; i < nums.length; i++) {
-            dp[i][0] = true;
+        boolean[] dp = new boolean[target + 1];
+        dp[0] = true;
+        for (int i = 1; i <= target; i++) {
+            dp[i] = nums[0] == i;
         }
         for (int i = 1; i < nums.length; i++) {
-            for (int j = 1; j <= target; j++) {
-                dp[i][j] = dp[i - 1][j];
+            for (int j = target; j >= nums[i]; j--) {
                 if (j - nums[i] >= 0) {
-                    dp[i][j] |= dp[i - 1][j - nums[i]];
+                    dp[j] |= dp[j - nums[i]];
                 }
             }
         }
-        return dp[nums.length - 1][target];
+        return dp[target];
     }
 
     public static void main(String[] args) {
-        int[] nums = {2, 2, 1, 1};
+        int[] nums = {1, 2, 3, 5};
         Solution solution = new Solution();
         System.out.println(solution.canPartition(nums));
     }
