@@ -1359,3 +1359,11 @@ for (int j = target; j >= nums[i]; j--) {
 ```
 
 这样可以进一步节省运算时间。
+
+### 20220525，最后一块石头的重量II
+
+[leetcode链接](https://leetcode.cn/problems/last-stone-weight-ii/)
+
+*关键词* ：动态规划，背包问题
+
+跟上一题做法基本一样的背包问题，但是要能看出来这是一个背包问题需要花点时间。
