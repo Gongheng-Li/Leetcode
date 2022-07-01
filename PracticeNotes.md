@@ -1433,3 +1433,11 @@ for (int j = target; j >= nums[i]; j--) {
 *关键词* ：动态规划
 
 基础动态规划。
+
+### 20220604，打家劫舍II
+
+[leetcode链接](https://leetcode.cn/problems/house-robber-ii/)
+
+*关键词* ：动态规划
+
+形成一个环的话就可以从一个点入手，拆成两种情况，取最大值即可。
