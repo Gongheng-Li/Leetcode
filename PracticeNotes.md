@@ -1457,3 +1457,11 @@ for (int j = target; j >= nums[i]; j--) {
 *关键词* ：无
 
 与其他买卖股票的题目有一些差异，很简单。
+
+### 20220607，买卖股票的最佳时机II
+
+[leetcode链接](https://leetcode.cn/problems/best-time-to-buy-and-sell-stock-ii/)
+
+*关键词* ：动态规划，贪心
+
+前不久刚做过，动态规划的做法比较简单，经典的二维动态规划，贪心做法比较巧妙。
