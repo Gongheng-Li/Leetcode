@@ -1449,3 +1449,11 @@ for (int j = target; j >= nums[i]; j--) {
 *关键词* ：树形动态规划
 
 树形动态规划的问题，这种题做得比较少，一开始还是有点陌生，不过想想也能想明白。
+
+### 20220606，买卖股票的最佳时机
+
+[leetcode链接](https://leetcode.cn/problems/best-time-to-buy-and-sell-stock/)
+
+*关键词* ：无
+
+与其他买卖股票的题目有一些差异，很简单。
