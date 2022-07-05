@@ -1481,3 +1481,11 @@ for (int j = target; j >= nums[i]; j--) {
 *关键词* ：动态规划
 
 跟上一题基本上一模一样的题。有个细节需要注意，题中给出的最大交易次数`k`很大，而真实交易次数是不会大于价格数组长度的一半的，所以在建立动态规划数组时只需要将其长度设置为`Math.min(k, n / 2)`即可。
+
+### 20220610，最佳买卖股票时机含冷冻期
+
+[leetcode链接](https://leetcode.cn/problems/best-time-to-buy-and-sell-stock-with-cooldown/)
+
+*关键词* ：动态规划
+
+也是简单的动态规划。
